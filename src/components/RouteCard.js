@@ -4,7 +4,14 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FlatButton from 'material-ui/FlatButton'
 import Avatar from 'material-ui/Avatar'
 import Dialog from 'material-ui/Dialog'
+import Divider from 'material-ui/Divider'
 import TextField from 'material-ui/TextField'
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
+import DeleteIcon from 'material-ui/svg-icons/action/delete'
+import EditIcon from 'material-ui/svg-icons/image/edit'
 
 import {
   indigo900,
@@ -70,13 +77,22 @@ class RouteCard extends React.Component {
               size={30}
               style={styles.avatar}>{ID.charAt(0).toUpperCase()}</Avatar>
           }
-        />
+        >
+          <IconMenu
+            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+            anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+            targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
+          >
+            <MenuItem primaryText="Edit" leftIcon={<EditIcon />} onTouchTap={this.handleEdit}/>
+            <Divider />
+            <MenuItem primaryText="Delete" leftIcon={<DeleteIcon />}/>
+          </IconMenu>
+        </CardHeader>
         <CardTitle title='Proxied URL' subtitle={ProxiedURL || '<none provided>'} />
         <CardText>
           Some other routey stuff.
         </CardText>
         <CardActions>
-          <FlatButton label="Edit" onTouchTap={this.handleEdit}/>
           <Dialog
             title={'Edit Route (' + ID + ')'}
             actions={actions}
