@@ -7,11 +7,29 @@ import MenuItem from 'material-ui/MenuItem'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import {deepOrange500} from 'material-ui/styles/colors'
+import {spacing, typography, zIndex} from 'material-ui/styles'
+import {
+  cyan500
+} from 'material-ui/styles/colors'
+
 const muiTheme = getMuiTheme({
   palette: {
     accent1Color: deepOrange500
   }
 })
+
+const styles = {
+  logo: {
+    cursor: 'pointer',
+    fontSize: 24,
+    color: typography.textFullWhite,
+    lineHeight: `${spacing.desktopKeylineIncrement}px`,
+    fontWeight: typography.fontWeightLight,
+    backgroundColor: cyan500,
+    paddingLeft: spacing.desktopGutter,
+    marginBottom: 8,
+  }
+};
 
 class Root extends React.Component {
   constructor (props) {
@@ -36,6 +54,9 @@ class Root extends React.Component {
             docked={false}
             open={this.state.open}
             onRequestChange={(open) => this.setState({open})}>
+            <div style={styles.logo} onTouchTap={this.handleTouchTapHeader}>
+              Ocelot
+            </div>
             <MenuItem
               onTouchTap={this.handleClose}
               containerElement={<Link to="/routes" />}>Routes</MenuItem>
