@@ -1,24 +1,32 @@
 import React, {PropTypes as T} from 'react'
-import RouteRow from './RouteRow'
+import RouteCard from './RouteCard'
+import {GridList} from 'material-ui/GridList'
+
+const styles = {
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around'
+  },
+  gridList: {
+    display: 'flex',
+    flexWrap: 'nowrap'
+  }
+}
 
 const RouteTable = ({routes}) => (
-  <table className='table table-striped'>
-    <thead>
-    <tr>
-      <th>Route ID</th>
-      <th>Port</th>
-      <th>Proxied URL</th>
-      <th/>
-    </tr>
-    </thead>
-    <tbody>
-    {Object.keys(routes).map(
-      routeKey => (
-        <RouteRow key={routes[routeKey].id} route={routes[routeKey]}/>
-      )
-    )}
-    </tbody>
-  </table>
+  <div style={styles.root}>
+    <GridList key="grid"
+      cols={3}
+      cellHeight="auto"
+      padding={20}
+      style={styles.gridList}
+    >
+      {Object.keys(routes).map(routeKey => (
+        <RouteCard key={routes[routeKey].id} route={routes[routeKey]}/>
+      ))}
+    </GridList>
+  </div>
 )
 
 RouteTable.displayName = 'RouteTable'
