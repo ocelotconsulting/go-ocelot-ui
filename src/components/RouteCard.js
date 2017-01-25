@@ -4,6 +4,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FlatButton from 'material-ui/FlatButton'
 import Avatar from 'material-ui/Avatar'
 import Dialog from 'material-ui/Dialog'
+import TextField from 'material-ui/TextField'
 
 import {
   indigo900,
@@ -24,7 +25,8 @@ class RouteCard extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      editable: false
+      editable: false,
+      errorText: ''
     }
   }
 
@@ -34,6 +36,10 @@ class RouteCard extends React.Component {
 
   handleDoneEdit = () => {
     this.setState({editable: false})
+  }
+
+  onURLChange (evt, value) {
+    this.setState({errorText: !value ? 'This URL is invalid' : ''})
   }
 
   render () {
@@ -78,7 +84,12 @@ class RouteCard extends React.Component {
             open={this.state.editable}
             onRequestClose={this.handleDoneEdit}
           >
-            Would you like to change the proxied URL?
+            <TextField
+              hintText={ProxiedURL}
+              errorText={this.state.errorText}
+              onChange={(e, v) => this.onURLChange(e, v)}
+              floatingLabelText="The URL to proxy for this service."
+            />
           </Dialog>
         </CardActions>
       </Card>
