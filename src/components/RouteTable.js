@@ -23,7 +23,7 @@ const RouteTable = ({routes}) => (
       style={styles.gridList}
     >
       {Object.keys(routes).map(routeKey => (
-        <RouteCard key={routes[routeKey].ID} route={routes[routeKey]}/>
+        <RouteCard key={routes[routeKey].id} route={routes[routeKey]}/>
       ))}
     </GridList>
   </div>

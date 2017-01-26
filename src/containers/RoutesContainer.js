@@ -1,31 +1,67 @@
 import React, {PropTypes as T} from 'react'
-import Spinner from '../components/Spinner'
 import RouteTable from '../components/RouteTable'
 import {connect} from 'react-redux'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import AddIcon from 'material-ui/svg-icons/content/add'
+import RefreshIndicator from 'material-ui/RefreshIndicator'
+import EditRouteDialog from '../components/EditRouteDialog'
 
 const style = {
-  margin: 50,
-  paddingLeft: 10,
-  paddingRight: 10
+  margin: 0,
+  top: 'auto',
+  right: 20,
+  bottom: 20,
+  left: 'auto',
+  position: 'fixed'
 }
+class RoutesContainer extends React.Component {
 
-export const Routes = ({routes}) => routes ? (
-  <div>
-    <h3>
-      &nbsp;
-    </h3>
-    <RouteTable routes={routes}/>
-  </div>
-) : (
-  <Spinner/>
-)
+  constructor (props) {
+    super(props)
+    this.state = {
+      new: false
+    }
+  }
 
-Routes.displayName = 'Routes'
+  handleNew = () => {
+    this.setState({new: true})
+  }
 
-Routes.propTypes = {
+  handleDoneEdit = () => {
+    this.setState({new: false})
+  }
+
+  render() {
+    const {routes} = this.props
+    return routes ? (
+      <div>
+        <h3>
+          &nbsp;
+        </h3>
+        <RouteTable routes={routes}/>
+        <FloatingActionButton
+          style={style}
+          onTouchTap={this.handleNew}>
+          <AddIcon />
+        </FloatingActionButton>
+        <EditRouteDialog open={this.state.new} close={this.handleDoneEdit} />
+      </div>
+    ) : (
+      <RefreshIndicator
+        size={40}
+        left={10}
+        top={0}
+        status="loading"
+        style={style.refresh}
+      />)
+  }
+}
+RoutesContainer.displayName = 'RoutesContainer'
+
+RoutesContainer.propTypes = {
   routes: T.object
 }
 
 export const mapStateToProps = ({routes: {all}}) => ({routes: all})
 
-export default connect(mapStateToProps, () => ({}))(Routes)
+export default connect(mapStateToProps, () => ({}))(RoutesContainer)
