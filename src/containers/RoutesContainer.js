@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import AddIcon from 'material-ui/svg-icons/content/add'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
-import EditRouteDialog from '../components/EditRouteDialog'
+import RouteDialogContainer from './RouteDialogContainer'
 
 const style = {
   margin: 0,
@@ -44,7 +44,7 @@ class RoutesContainer extends React.Component {
           onTouchTap={this.handleNew}>
           <AddIcon />
         </FloatingActionButton>
-        <EditRouteDialog open={this.state.new} close={this.handleDoneEdit} />
+        <RouteDialogContainer open={this.state.new} close={this.handleDoneEdit} />
       </div>
     ) : (
       <RefreshIndicator

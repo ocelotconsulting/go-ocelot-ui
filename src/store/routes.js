@@ -1,8 +1,8 @@
-import {GET_ROUTES, SELECT_ROUTE} from '../actions/types'
+import {GET_ROUTES, SELECT_ROUTE, UPDATE_CONFIG} from '../actions/types'
 
 const initialState = {
   selected: {
-    repository: {}
+    id: undefined
   }
 }
 
@@ -23,9 +23,17 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         selected: {
-          id: action.routeId
+          id: action.id
         }
       }
+    case UPDATE_CONFIG: {
+      return {
+        ...state,
+        editing: {...state.editing,
+          [action.prop]: action.value
+        }
+      }
+    }
     default:
       return state
   }

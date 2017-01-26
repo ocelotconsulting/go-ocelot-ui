@@ -1,5 +1,5 @@
 import React, {PropTypes as T} from 'react'
-import RouteCard from './RouteCard'
+import RouteCardContainer from '../containers/RouteCardContainer'
 import {GridList} from 'material-ui/GridList'
 
 const styles = {
@@ -23,7 +23,7 @@ const RouteTable = ({routes}) => (
       style={styles.gridList}
     >
       {Object.keys(routes).map(routeKey => (
-        <RouteCard key={routes[routeKey].id} route={routes[routeKey]}/>
+        <RouteCardContainer key={routes[routeKey].id} route={routes[routeKey]}/>
       ))}
     </GridList>
   </div>

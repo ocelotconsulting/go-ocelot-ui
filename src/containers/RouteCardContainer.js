@@ -1,18 +1,17 @@
 import React, {PropTypes as T} from 'react'
-import {Link} from 'react-router'
+import {connect} from 'react-redux'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import Avatar from 'material-ui/Avatar'
-import Dialog from 'material-ui/Dialog'
 import Divider from 'material-ui/Divider'
-import TextField from 'material-ui/TextField'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/image/edit'
-import EditRouteDialog from './EditRouteDialog'
+import RouteDialogContainer from '../containers/RouteDialogContainer'
+import selectRoute from '../actions/selectRoute'
 
 import {
   cyan500
@@ -25,7 +24,7 @@ const styles = {
   }
 }
 
-class RouteCard extends React.Component {
+class RouteCardContainer extends React.Component {
 
   constructor (props) {
     super(props)
@@ -35,30 +34,8 @@ class RouteCard extends React.Component {
     }
   }
 
-  handleEdit = () => {
-    this.setState({editable: true})
-  }
-
-  handleDoneEdit = () => {
-    this.setState({editable: false})
-  }
-
   render () {
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleDoneEdit}
-      />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.handleDoneEdit}
-      />
-    ]
-
-    const {route} = this.props
+    const {route, onRouteSelected} = this.props
     return (
       <Card zDepth={1}>
         <CardHeader
@@ -71,10 +48,10 @@ class RouteCard extends React.Component {
           }
           children={<IconMenu style={styles.smallerIcon}
                       iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                      anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-                      targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
+                      anchorOrigin={{horizontal: 'left', vertical: 'center'}}
+                      targetOrigin={{horizontal: 'middle', vertical: 'top'}}
                     >
-                      <MenuItem primaryText="Edit" leftIcon={<EditIcon />} onTouchTap={this.handleEdit}/>
+                      <MenuItem primaryText="Edit" leftIcon={<EditIcon />} onTouchTap={() => onRouteSelected(route.id)}/>
                       <Divider />
                       <MenuItem primaryText="Delete" leftIcon={<DeleteIcon />}/>
                     </IconMenu>}
@@ -84,17 +61,22 @@ class RouteCard extends React.Component {
           Some other routey stuff.
         </CardText>
         <CardActions>
-          <EditRouteDialog route={route} open={this.state.editable} close={this.handleDoneEdit} />
+          <RouteDialogContainer route={route} open={this.state.editable} close={this.handleDoneEdit} />
         </CardActions>
       </Card>
     )
   }
 }
 
-RouteCard.displayName = 'RouteCard'
+RouteCardContainer.displayName = 'RouteCardContainer'
 
-RouteCard.propTypes = {
-  route: T.object.isRequired
+RouteCardContainer.propTypes = {
+  route: T.object.isRequired,
+  onRouteSelected: T.func.isRequired
 }
 
-export default RouteCard
+export const mapDispatchToProps = dispatch => ({
+  onRouteSelected: (routeId) => dispatch(selectRoute(routeId))
+})
+
+export default connect(() => ({}), mapDispatchToProps)(RouteCardContainer)
