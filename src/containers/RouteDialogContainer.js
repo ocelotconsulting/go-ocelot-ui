@@ -21,7 +21,8 @@ class RouteDialogContainer extends React.Component {
   }
 
   render () {
-    const {route, open, close, onSave, onChange} = this.props
+    const {routes, open, close, onSave, onChange} = this.props
+    const route = {}
     const actions = [
       <FlatButton
         label="Cancel"
@@ -32,20 +33,20 @@ class RouteDialogContainer extends React.Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={onSave(route)}
+        onTouchTap={onSave(routes.selected || route)}
       />
     ]
 
-    return route ? (
+    return routes.selected ? (
       <Dialog
-        title={'Edit Route (' + route.id + ')'}
+        title={'Edit Route (' + routes.selected.id + ')'}
         actions={actions}
         modal={false}
         open={open}
         onRequestClose={close}
       >
         <TextField
-          hintText={route.proxiedURL}
+          hintText={routes.selected.proxiedURL}
           errorText={this.state.errorText}
           onChange={(e, v) => this.onURLChange(e, v)}
           floatingLabelText="The URL to proxy for this service."
@@ -95,12 +96,14 @@ class RouteDialogContainer extends React.Component {
 RouteDialogContainer.displayName = 'RouteDialogContainer'
 
 RouteDialogContainer.propTypes = {
-  route: T.object,
+  routes: T.object,
   onSave: T.func.isRequired,
   onChange: T.func.isRequired
 }
 
-const mapStateToProps = () => ({})
+const mapStateToProps = ({routes}) => ({
+  routes
+})
 
 const mapDispatchToProps = dispatch => {
   const onChange = (prop, targetProperty = 'value') =>

@@ -19,5 +19,15 @@ export default {
 
   put (dispatch, actionId, path, requestBody) {
     return apply({method: 'put', dispatch, actionId, path, requestBody})
+  },
+
+  del (dispatch, actionId, path, id) {
+    dispatch({type: actionId, status: 'start'})
+
+    return agent['delete'](`${apiBaseUrl}/${path}`)
+    .then(({body}) => {
+      dispatch({type: actionId, status: 'done', id})
+    })
+    .catch(error => dispatch({type: actionId, status: 'error', error}))
   }
 }

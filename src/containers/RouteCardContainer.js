@@ -11,7 +11,8 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/image/edit'
 import RouteDialogContainer from '../containers/RouteDialogContainer'
-import selectRoute from '../actions/selectRoute'
+import editRoute from '../actions/editRoute'
+import deleteRoute from '../actions/deleteRoute'
 
 import {
   cyan500
@@ -35,7 +36,7 @@ class RouteCardContainer extends React.Component {
   }
 
   render () {
-    const {route, onRouteSelected} = this.props
+    const {route, onRouteEdit, onRouteDelete} = this.props
     return (
       <Card zDepth={1}>
         <CardHeader
@@ -51,18 +52,15 @@ class RouteCardContainer extends React.Component {
                       anchorOrigin={{horizontal: 'left', vertical: 'center'}}
                       targetOrigin={{horizontal: 'middle', vertical: 'top'}}
                     >
-                      <MenuItem primaryText="Edit" leftIcon={<EditIcon />} onTouchTap={() => onRouteSelected(route.id)}/>
+                      <MenuItem primaryText="Edit" leftIcon={<EditIcon />} onTouchTap={() => onRouteEdit(route)}/>
                       <Divider />
-                      <MenuItem primaryText="Delete" leftIcon={<DeleteIcon />}/>
+                      <MenuItem primaryText="Delete" leftIcon={<DeleteIcon />} onTouchTap={() => onRouteDelete(route.id)}/>
                     </IconMenu>}
         />
         <CardTitle title='Proxied URL' subtitle={route.proxiedURL || '<none provided>'} />
         <CardText>
           Some other routey stuff.
         </CardText>
-        <CardActions>
-          <RouteDialogContainer route={route} open={this.state.editable} close={this.handleDoneEdit} />
-        </CardActions>
       </Card>
     )
   }
@@ -72,11 +70,13 @@ RouteCardContainer.displayName = 'RouteCardContainer'
 
 RouteCardContainer.propTypes = {
   route: T.object.isRequired,
-  onRouteSelected: T.func.isRequired
+  onRouteEdit: T.func.isRequired,
+  onRouteDelete: T.func.isRequired
 }
 
 export const mapDispatchToProps = dispatch => ({
-  onRouteSelected: (routeId) => dispatch(selectRoute(routeId))
+  onRouteEdit: (route) => dispatch(editRoute(route)),
+  onRouteDelete: (routeId) => dispatch(deleteRoute(routeId))
 })
 
 export default connect(() => ({}), mapDispatchToProps)(RouteCardContainer)

@@ -17,7 +17,7 @@ const styles = {
 const RouteTable = ({routes}) => (
   <div style={styles.root}>
     <GridList key="grid"
-      cols={3}
+      cols={routes && routes.length > 2 ? 3 : 2}
       cellHeight="auto"
       padding={20}
       style={styles.gridList}

@@ -38,7 +38,7 @@ class RoutesContainer extends React.Component {
         <h3>
           &nbsp;
         </h3>
-        <RouteTable routes={routes}/>
+        {routes && (<RouteTable routes={routes}/>)}
         <FloatingActionButton
           style={style}
           onTouchTap={this.handleNew}>
