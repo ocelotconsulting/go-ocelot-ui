@@ -2,9 +2,10 @@ const webpack = require('webpack')
 
 module.exports = Object.assign({}, require('./webpack.config'), {
   output: {
-    path: '/bundle.js'
+    path: '/',
+    filename: 'bundle.js'
   },
-  devtool: '#cheap-inline-source-map',
+  devtool: 'cheap-inline-source-map',
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {

@@ -4,7 +4,7 @@
   "description": "UI for golang ocelot router",
   "scripts": {
     "clean": "rm -rf public && rm -rf dist && mkdir public",
-    "dev": "NODE_ENV=development supervisor -w server.js,index.html,dev.js,api node server",
+    "dev": "supervisor -w server.js,index.html,dev.js,api node server",
     "build:copy-images": "cp -r images public/images",
     "build:copy-html": "cp index.html public/index.html",
     "build:less": "lessc --clean-css css/styles.less public/styles.css",
@@ -39,15 +39,15 @@
     "moment": "~2.17.1"
   },
   "devDependencies": {
-    "babel-core": "~6.21.0",
+    "babel-core": "~6.22.1",
     "babel-loader": "~6.2.10",
-    "babel-plugin-transform-class-properties": "~6.19.0",
-    "babel-plugin-transform-runtime": "~6.15.0",
-    "babel-polyfill": "~6.20.0",
-    "babel-preset-es2015": "~6.18.0",
-    "babel-preset-react": "~6.16.0",
-    "babel-preset-stage-0": "~6.16.0",
-    "babel-runtime": "~6.20.0",
+    "babel-plugin-transform-class-properties": "~6.22.0",
+    "babel-plugin-transform-runtime": "~6.22.0",
+    "babel-polyfill": "~6.22.0",
+    "babel-preset-es2015": "~6.22.0",
+    "babel-preset-react": "~6.22.0",
+    "babel-preset-stage-0": "~6.22.0",
+    "babel-runtime": "~6.22.0",
     "chai": "~3.5.0",
     "chai-as-promised": "~6.0.0",
     "classnames": "~2.2.5",
@@ -76,9 +76,9 @@
     "sinon": "~1.17.7",
     "sinon-as-promised": "~4.0.2",
     "sinon-chai": "~2.8.0",
-    "superagent": "~3.3.2",
+    "superagent": "~3.4.1",
     "supervisor": "~0.12.0",
-    "webpack": "~1.14.0",
+    "webpack": "~2.2.0",
     "webpack-dev-middleware": "~1.9.0"
   }
 }
